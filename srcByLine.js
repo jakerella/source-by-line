@@ -63,7 +63,7 @@ window.srcbyline = (function(app) {
             var lines;
 
             if (/^\s*[0-9]+\s*$/.test(lineSelect)) {
-                content.push(data.lines[Number(lineSelect)] || '');
+                content.push(data.lines[Number(lineSelect)-1] || '');
 
             } else if (/^\s*[0-9]+\-[0-9]+\s*$/.test(lineSelect)) {
                 lines = getNumbersInRange(lineSelect);
