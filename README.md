@@ -12,7 +12,7 @@ if you have the [highlight.js](http://highlightjs.org/) library available.
 ## Basic Usage
 
 ```html
-<code data-srcbyline='beer.js?1-4;19-20;31-33'></code>
+<code data-srcbyline='path/to/beer.js?1-4;19-20;31-33'></code>
 
 <script src='path/to/srcByLine.js'></script>
 ```
@@ -21,3 +21,44 @@ That's it... the specific lines in the data attribute will be displayed on the p
 but no other lines in that file. If you specify a line number past the end of the 
 file it will just print a blank line. And if you have the highlight.js library 
 installed the highlighted HTML will be inserted instead.
+
+## Integration with Reveal.js
+
+So you want to use this on your Reveal.js slides? So did I! That's why I wrote it.
+
+In your `package.json` file:
+
+```json
+"dependencies": {
+  "reveal.js": "^2.6.2",
+  "src-by-line": "git://github.com/jakerella/source-by-line.git"
+}
+```
+
+In your Reveal options (typically at the bottom of the main HTML file):
+
+```js
+Reveal.initialize({
+  // options...
+
+  dependencies: [
+    // { other dependencies },
+    { src: 'node_modules/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    // NOTE: highlight.js above is OPTIONAL, but we'll use it if it's there
+    { src: 'node_modules/source-by-line/srcByLine.js', async: true }
+  ]
+});
+```
+
+In your slide content:
+
+```html
+<div class='reveal'>
+  <div class='slides'>
+    <!-- ... other slides ... -->
+    <section>
+      <pre><code data-trim data-srcbyline='/path/to/beer.js?1-4;19-20;31-33'></code></pre>
+    </section>
+  </div>
+</div>
+```
