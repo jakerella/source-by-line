@@ -1,10 +1,13 @@
-(function() {
+window.srcbyline = (function(app) {
     'use strict';
 
-    var fileCache = {},
-        nodeList = [].slice.call(document.querySelectorAll('[data-srcbyline]'));
+    app.init = function() {
+        var nodeList = [].slice.call(document.querySelectorAll('[data-srcbyline]'));
 
-    nodeList.forEach(processNode);
+        app.fileCache = {};
+
+        nodeList.forEach(processNode);
+    };
 
     function processNode(node) {
         var input = node.dataset.srcbyline.split(/\?/),
@@ -16,25 +19,40 @@
             return;
         }
 
-        if (fileCache[filename]) {
+        if (app.fileCache[filename]) {
             // we already have it...
-            insertLines(node, fileCache[filename], lineNums);
+            insertLines(node, app.fileCache[filename], lineNums);
 
-        } else if (fileCache[filename] === null) {
+        } else if (app.fileCache[filename] === null) {
             // it's being processed now, so hang out and try again shortly...
             setTimeout(function() {
-                processNode(node);
+                waitForFile(node, filename, lineNums);
             }, 100);
+
         } else {
+            // Grab the file and process it
+            // but first, indicate to any future nodes that we're working on this one already
+            app.fileCache[filename] = null;
+
             getSource(filename, function(data) {
                 if (data !== null) {
-                    fileCache[filename] = {
+                    app.fileCache[filename] = {
                         filename: filename,
                         lines: data
                     };
-                    insertLines(node, fileCache[filename], lineNums);
+                    insertLines(node, app.fileCache[filename], lineNums);
                 }
             });
+        }
+    }
+
+    function waitForFile(node, filename, lineNums) {
+        if (app.fileCache[filename]) {
+            insertLines(node, app.fileCache[filename], lineNums);
+        } else {
+            setTimeout(function() {
+                waitForFile(node, filename, lineNums);
+            }, 100);
         }
     }
 
@@ -61,13 +79,14 @@
     function getNumbersInRange(range) {
         var i,
             nums = [],
-            ends = range.split(/\-/);
+            ends = range.split(/\-/),
+            stop = Number(ends[1]);
 
         if (!ends || ends.length !== 2) {
             return nums;
         }
 
-        for (i=ends[0]; i<=ends[1]; ++i) {
+        for (i=Number(ends[0]); i<=stop; ++i) {
             nums.push(i);
         }
 
@@ -107,4 +126,6 @@
         srcXhr.send();
     }
 
-})();
+    return app;
+
+})(window.srcbyline || {});
