@@ -73,7 +73,30 @@ window.srcbyline = (function(app) {
             }
         });
 
-        node.innerHTML = highlight(content.join("\n"));
+        node.innerHTML = highlight(trimLines(content).join("\n"));
+    }
+
+    function trimLines(content) {
+        var i, l,
+            minSpacing = 99;
+        
+        for (i=0, l=content.length; i<l; ++i) {
+            var spaces = content[i].match(/^(\s+)/);
+            if (spaces) {
+                if (spaces[1].length < minSpacing) {
+                    minSpacing = spaces[1].length;
+                }
+
+            } else {
+                // if there is no match, then we have a line with no spaces, so we can't trim
+                minSpacing = 0;
+                break;
+            }
+        }
+
+        return content.map(function(line) {
+            return line.substr(minSpacing);
+        });
     }
 
     function getNumbersInRange(range) {
