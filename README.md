@@ -34,6 +34,7 @@ In your `package.json` file:
   "src-by-line": "git://github.com/jakerella/source-by-line.git"
 }
 ```
+And don't forget to run `npm install` again!
 
 In your Reveal options (typically at the bottom of the main HTML file):
 
