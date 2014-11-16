@@ -12,15 +12,19 @@ if you have the [highlight.js](http://highlightjs.org/) library available.
 ## Basic Usage
 
 ```html
-<code data-srcbyline='path/to/beer.js?1-4;19-20;31-33'></code>
+<code data-srcbyline='path/to/beer.js?1-4;10;19-20;31-33'></code>
 
 <script src='path/to/srcByLine.js'></script>
+<script>
+window.srcbyline.init();
+</script>
 ```
 
 That's it... the specific lines in the data attribute will be displayed on the page, 
-but no other lines in that file. If you specify a line number past the end of the 
-file it will just print a blank line. And if you have the highlight.js library 
-installed the highlighted HTML will be inserted instead.
+but no other lines in that file. You can use single line numbers or a range using 
+a hyphen. If you specify a line number past the end of the file it will just print 
+a blank line. And if you have the highlight.js library installed the highlighted HTML 
+will be inserted instead.
 
 ## Integration with Reveal.js
 
@@ -46,7 +50,7 @@ Reveal.initialize({
     // { other dependencies },
     { src: 'node_modules/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
     // NOTE: highlight.js above is OPTIONAL, but we'll use it if it's there
-    { src: 'node_modules/source-by-line/srcByLine.js', async: true }
+    { src: 'node_modules/source-by-line/srcByLine.js', async: true, callback: function() { window.srcbyline.init(); } }
   ]
 });
 ```
@@ -58,7 +62,7 @@ In your slide content:
   <div class='slides'>
     <!-- ... other slides ... -->
     <section>
-      <pre><code data-trim data-srcbyline='/path/to/beer.js?1-4;19-20;31-33'></code></pre>
+      <pre><code data-trim data-srcbyline='/path/to/beer.js?1-4;10;19-20;31-33'></code></pre>
     </section>
   </div>
 </div>
