@@ -95,8 +95,8 @@ window.srcbyline = (function(app) {
                     minSpacing = spaces[1].length;
                 }
 
-            } else {
-                // if there is no match, then we have a line with no spaces, so we can't trim
+            } else if (content[i].length) {
+                // if there is no match, then we have a line with no spaces in front, so we can't trim
                 minSpacing = 0;
                 break;
             }
