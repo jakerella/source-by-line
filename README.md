@@ -62,8 +62,12 @@ In your slide content:
   <div class='slides'>
     <!-- ... other slides ... -->
     <section>
-      <pre><code data-trim data-srcbyline='/path/to/beer.js?1-4;10;19-20;31-33'></code></pre>
+      <pre><code data-trim data-lang='javascript' data-srcbyline='/path/to/beer.js?1-4;10;19-20;31-33'></code></pre>
     </section>
   </div>
 </div>
 ```
+
+**Note: If using Reveal.js, it may be best to NOT use the highlight.js plugin as it is behind the current version!**
+
+Instead, use highlight.js from a CDN, bower install, or other means. This plugin will still work, but some of the automated highlighting options may not work.

@@ -57,7 +57,8 @@ window.srcbyline = (function(app) {
     }
 
     function insertLines(node, data, lineNums) {
-        var content = [];
+        var lang,
+            content = [];
 
         lineNums.forEach(function(lineSelect) {
             var lines;
@@ -73,7 +74,14 @@ window.srcbyline = (function(app) {
             }
         });
 
-        node.innerHTML = highlight(trimLines(content).join("\n"));
+        [].slice.call(node.classList).forEach(function(cls) {
+            var m = cls.match(/^lang(?:uage)?\-(.+)/);
+            if (m) {
+                lang = m[1];
+            }
+        });
+
+        node.innerHTML = highlight(trimLines(content).join("\n"), lang);
     }
 
     function trimLines(content) {
@@ -116,12 +124,14 @@ window.srcbyline = (function(app) {
         return nums;
     }
 
-    function highlight(content) {
+    function highlight(content, lang) {
         var parsed = content;
+
+        lang = (lang && lang.length) ? [lang] : undefined;
 
         if (window.hljs) {
             try {
-                parsed = hljs.highlightAuto(content).value;
+                parsed = hljs.highlightAuto(content, lang).value;
             } catch(err) {
                 console.warn(err);
                 parsed = content;
