@@ -26,6 +26,12 @@ a hyphen. If you specify a line number past the end of the file it will just pri
 a blank line. And if you have the highlight.js library installed the highlighted HTML 
 will be inserted instead.
 
+### Examples
+
+You can see a couple of examples in the [`examples` directory(examples/). You'll need 
+to clone this repo, then run a simple web server to serve up this directory. These are 
+just a couple basic examples to show the library working, one of them with highlighting.
+
 ## Integration with Reveal.js
 
 So you want to use this on your Reveal.js slides? So did I! That's why I wrote it.

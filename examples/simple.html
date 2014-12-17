@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Basic Example of source-by-line</title>
+        
+        <style type='text/css'>
+        body {
+            background-color: #fff;
+        }
+        pre {
+            border: 1px solid #999;
+            background-color: #ddd;
+            margin: 1em;
+            padding: 0.5em;
+        }
+        </style>
+    </head>
+
+    <body>
+        <section>
+            <p>The format is simple: <code>[filename]?[lineNum[-endLineNum];], ...</code></p>
+        </section>
+        
+        <section>
+            <p>This line in your HTML...</p>
+            <pre><code>
+&lt;pre&gt;&lt;code data-srcbyline='../srcByLine.js?1-11;162-164'&gt;&lt;/code&gt;&lt;/pre&gt;
+            </code></pre>
+            
+            <p>...produces this block (we have some basic styles attached)</p>
+            <pre><code data-srcbyline='../srcByLine.js?1-11;162-164'></code></pre>
+        </section>
+        
+        <section>
+            <p>And this line in your HTML...</p>
+            <pre><code>
+&lt;pre&gt;&lt;code data-srcbyline='../srcByLine.js?1-12;47;49;57;59;85;87;108;110;125;127;142;144;160-164'&gt;&lt;/code&gt;&lt;/pre&gt;
+            </code></pre>
+            
+            <p>...produces this block</p>
+            <pre><code data-srcbyline='../srcByLine.js?1-12;47;49;57;59;85;87;108;110;125;127;142;144;160-164'></code></pre>
+            
+            <p>Note that files are cached on each page load, so although these two examples are on the same page, the file will only be retrieved once.</p>
+        </section>
+
+        <script src='../srcByLine.js'></script>
+        <script>
+            window.srcbyline.init();
+        </script>
+    </body>
+</html>

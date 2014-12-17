@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Basic Example of source-by-line</title>
+        
+        <link rel='stylesheet' href='highlight/github.css'>
+        
+        <style type='text/css'>
+        body {
+            background-color: #fff;
+        }
+        pre {
+            border: 1px solid #999;
+            margin: 1em;
+            padding: 0.5em;
+        }
+        </style>
+    </head>
+
+    <body>
+        
+        <section>
+            <p>By simply including the highlight.js library (and a CSS theme) we can highlight our code blocks:</p>
+        </section>
+        
+        <section>
+            <pre><code>
+&lt;pre&gt;&lt;code data-srcbyline='../srcByLine.js?1-11;162-164'&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- ... --&gt;
+
+&lt;script src='path/to/highlight.js'&gt;&lt;/script&gt;
+            </code></pre>
+            
+            <pre><code data-srcbyline='../srcByLine.js?1-11;162-164'></code></pre>
+        </section>
+
+        <script src='../srcByLine.js'></script>
+        <script src='highlight/highlight.js'></script>
+        <script src='highlight/xml.js'></script>
+        <script src='highlight/javascript.js'></script>
+        <script>
+            window.srcbyline.init();
+            hljs.registerLanguage('xml', hljs.__xml);
+            hljs.registerLanguage('javascript', hljs.__javascript);
+            hljs.initHighlighting();
+        </script>
+    </body>
+</html>
